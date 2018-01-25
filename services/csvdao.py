@@ -1,9 +1,9 @@
 import os
-import sys
 import csv
 import logging
 
 logging.basicConfig(level=logging.INFO)
+
 
 class CsvDao:
     """Data access object creating class for csvfile
@@ -18,7 +18,7 @@ class CsvDao:
 
         self.file_name = file_name
 
-    def get_csv_data(self,csv_fname):
+    def get_csv_data(self, csv_fname):
         """Generator for getting csv data
         
         Arguments:
@@ -38,12 +38,8 @@ class CsvDao:
                         raise ValueError("Read row error")
                     yield row
             except IOError:
-                logging.error("Could not read file", 'us_states.csv')
-                sys.exit(1)
-            except ValueError:
-                logging.error("Read row error")
-                sys.exit(1)
-                
+                raise IOError
+
     def read_file(self):
         """Read csv file
         
@@ -51,9 +47,7 @@ class CsvDao:
             [list] -- [return list of rows]
         """
         if os.path.exists(self.file_name):
-              iter_data = iter(self.get_csv_data(self.file_name))
-              return iter_data       
+            iter_data = iter(self.get_csv_data(self.file_name))
+            return iter_data
         else:
-            logging.error("file not found")
-            sys.exit(1)
-   
+            raise Exception("file not found")
