@@ -7,7 +7,7 @@ class MySqlDao:
     def __init__(self, mysql_db, cursor):
         self.cursor = cursor
         self.mysql_db = mysql_db
-            
+
     def create_table(self, table_name):
         """Create a table named  states
         """
@@ -21,7 +21,7 @@ class MySqlDao:
 
     def request_data(self, sql):
         """Request data from query
-        
+
         Arguments:
             sql {query} -- [sql query to request data]
         """
@@ -38,18 +38,22 @@ class MySqlDao:
 
     def insert(self, row, table_name):
         """Insert row in table
-        
+
         Arguments:
             row {[List]} -- [insert row in states table]
         """
 
         try:
+            print(row)
             self.cursor.execute("INSERT INTO {0}(Statename, state, avr) VALUES(%s, %s, %s)".format(table_name), row)
             self.mysql_db.commit()
         except Db.Error as e:
-            raise Exception(e)
+            self.mysql_db.rollback()
+            # self.cursor.execute("TRUNCATE {0}".format(table_name))
+            # raise Exception(e)
 
     def close(self):
         """Close table
         """
         self.cursor.close()
+

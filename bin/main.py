@@ -16,7 +16,7 @@ def main():
         read_csv = csv_dao.read_file()
         for row in read_csv:
             sql_db.insert(row, 'states')
-        sql_db.close()
+        # sql_db.close()
 
     except Exception as e:
         logging.error(e)
