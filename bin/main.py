@@ -13,7 +13,7 @@ def main():
         sql_db = MySqlDao(my_db_obj, my_db_cursor)
         sql_db.create_table('states')
         csv_dao = CsvDao('us_states.csv')
-        read_csv = csv_dao.read_file()
+        read_csv = csv_dao.read_file('us_states.csv')
         for row in read_csv:
             sql_db.insert(row, 'states')
         # sql_db.close()
