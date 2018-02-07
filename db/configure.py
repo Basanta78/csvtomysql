@@ -1,6 +1,6 @@
 config = {
-  'user': 'root',
-  'password': 'c2rabstropy',
-  'database': 'testdb',
+  'user': 'username',
+  'password': 'password',
+  'database': 'database_name',
 }
 
