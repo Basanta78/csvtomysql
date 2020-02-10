@@ -4,6 +4,7 @@ import MySQLdb as Db
 class MySqlDao:
     """Class to connect and interact with mysql
     """
+
     def __init__(self, mysql_db, cursor):
         self.cursor = cursor
         self.mysql_db = mysql_db
@@ -13,13 +14,18 @@ class MySqlDao:
         """
 
         try:
-            self.cursor.execute("create table {0} (Statename VARCHAR(20),state VARCHAR(20),avr VARCHAR(20))".format(table_name))
+            self.cursor.execute(
+                "create table {0} (Statename VARCHAR(20),state VARCHAR(20),avr VARCHAR(20))".format(
+                    table_name
+                )
+            )
         except Db.OperationalError:
             self.cursor.execute("TRUNCATE {0}".format(table_name))
         except Db.DatabaseError:
             raise Exception("Connection not found")
 
     def request_data(self, sql):
+
         """Request data from query
 
         Arguments:
@@ -45,7 +51,12 @@ class MySqlDao:
 
         try:
             print(row)
-            self.cursor.execute("INSERT INTO {0}(Statename, state, avr) VALUES(%s, %s, %s)".format(table_name), row)
+            self.cursor.execute(
+                "INSERT INTO {0}(Statename, state, avr) VALUES(%s, %s, %s)".format(
+                    table_name
+                ),
+                row,
+            )
             self.mysql_db.commit()
         except Db.Error as e:
             self.mysql_db.rollback()
@@ -56,4 +67,3 @@ class MySqlDao:
         """Close table
         """
         self.cursor.close()
-
