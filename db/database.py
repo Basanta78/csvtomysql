@@ -17,7 +17,7 @@ class MySqlConnector:
             self.my_db = Db.connect(**config)
             self.cursor = self.my_db.cursor()
         except Db.Error as err:
-            raise Exception(err)
+            raise Db.OperationalError(err)
 
     def get_db_cursor(self):
         return self.cursor
