@@ -60,8 +60,6 @@ class MySqlDao:
             self.mysql_db.commit()
         except Db.Error as e:
             self.mysql_db.rollback()
-            # self.cursor.execute("TRUNCATE {0}".format(table_name))
-            # raise Exception(e)
 
     def close(self):
         """Close table
